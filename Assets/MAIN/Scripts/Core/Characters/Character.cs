@@ -14,6 +14,7 @@ namespace CHARACTERS
         public RectTransform root = null;
         public CharacterConfigData config;
         public Animator animator;
+        public Vector2 targetPosition { get; private set; }
 
         protected CharacterManager characterManager => CharacterManager.Instance;
         public DialogueSystem dialogueSystem => DialogueSystem.Instance;
@@ -99,6 +100,8 @@ namespace CHARACTERS
 
             root.anchorMin = minAnchorTarget;
             root.anchorMax = maxAnchorTarget;
+
+            targetPosition = position;
         }
 
         public virtual Coroutine MoveToPosition(Vector2 position, float speed = 2f)
@@ -110,6 +113,8 @@ namespace CHARACTERS
                 characterManager.StopCoroutine(co_moving);
             
             co_moving = characterManager.StartCoroutine(MovingToPosition(position, speed));
+
+            targetPosition = position;
 
             return co_moving;
         }

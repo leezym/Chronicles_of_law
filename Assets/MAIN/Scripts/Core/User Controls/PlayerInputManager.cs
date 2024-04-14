@@ -9,18 +9,18 @@ namespace DIALOGUE
         private const string CLIC_SOUND_PATH = "Audio/SFX/interface-click";
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0))
+            if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             {
                 //Clic sound
                 AudioManager.Instance.PlaySoundEffect(CLIC_SOUND_PATH);
-
                 PromptAdvance();
             }
         }
 
         public void PromptAdvance()
         {
-            DialogueSystem.Instance.OnUserPrompt_Next();
+            if(!FolderPanel.Instance.isWaitingOnUserChoice)
+                DialogueSystem.Instance.OnUserPrompt_Next();
         }
     }
 }

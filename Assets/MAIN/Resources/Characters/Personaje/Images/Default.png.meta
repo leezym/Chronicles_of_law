@@ -165,7 +165,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enojado
+      name: Preocupado
       rect:
         serializedVersion: 2
         x: 443
@@ -228,7 +228,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Preocupado
+      name: Dubitativo
       rect:
         serializedVersion: 2
         x: 232
@@ -270,7 +270,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Feliz
+      name: Contento
       rect:
         serializedVersion: 2
         x: 444
@@ -301,14 +301,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Contento: -1005220912
       Cuerpo: -1143345523
-      Enojado: 443419484
-      Feliz: -1005220912
+      Dubitativo: -222796243
       Furioso: 387768129
       Girl_6: -1072597908
       Girl_8: 1483414458
       Normal: 1754228493
-      Preocupado: -222796243
+      Preocupado: 443419484
       Serio: -2009307320
       Sonrojado: -799832430
       Tranquilo: 1373178626

@@ -21,6 +21,20 @@ MonoBehaviour:
     dialogueFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     nameFontSize: 40
     dialogueFontSize: 40
+    sprites:
+      _serializedList:
+      - Key: Sonrojado
+        Value: {fileID: 701462834, guid: 4ff8dac0639563345a9f55b469f158df, type: 3}
+      - Key: Tranquilo
+        Value: {fileID: 1542614295, guid: 4ff8dac0639563345a9f55b469f158df, type: 3}
+      - Key: Coqueto
+        Value: {fileID: 1891028144, guid: 4ff8dac0639563345a9f55b469f158df, type: 3}
+      - Key: Assets/MAIN/Resources/Characters/Avatar/Images/Nervioso
+        Value: {fileID: -1090860507, guid: 4ff8dac0639563345a9f55b469f158df, type: 3}
+      - Key: Normal
+        Value: {fileID: -2121712326, guid: 4ff8dac0639563345a9f55b469f158df, type: 3}
+      - Key: Serio
+        Value: {fileID: -244041059, guid: 4ff8dac0639563345a9f55b469f158df, type: 3}
   - name: Personaje
     characterType: 2
     nameColor: {r: 0.17515129, g: 0.28003305, b: 0.9056604, a: 1}
@@ -29,3 +43,21 @@ MonoBehaviour:
     dialogueFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     nameFontSize: 40
     dialogueFontSize: 40
+    sprites:
+      _serializedList:
+      - Key: Cuerpo
+        Value: {fileID: -1143345523, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
+      - Key: Serio
+        Value: {fileID: -2009307320, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
+      - Key: Enojado
+        Value: {fileID: 443419484, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
+      - Key: Feliz
+        Value: {fileID: -1005220912, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
+      - Key: Normal
+        Value: {fileID: 1754228493, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
+      - Key: Preocupado
+        Value: {fileID: -222796243, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
+      - Key: Sonrojado
+        Value: {fileID: -799832430, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
+      - Key: Tranquilo
+        Value: {fileID: 1373178626, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}

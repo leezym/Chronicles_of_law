@@ -8,7 +8,7 @@ namespace CHARACTERS
     public class CharacterManager : MonoBehaviour
     {
         public static CharacterManager Instance { get; private set; }
-        private Dictionary<string, Character> characters = new Dictionary<string, Character>();
+        public Dictionary<string, Character> allCharacters { get; private set; } = new Dictionary<string, Character>();
 
         private CharacterConfigSO config => DialogueSystem.Instance.config.characterConfigAsset;
 
@@ -32,8 +32,8 @@ namespace CHARACTERS
 
         public Character GetCharacter(string characterName, bool createIfDoesNotExist = false)
         {
-            if(characters.ContainsKey(characterName.ToLower()))
-                return characters[characterName.ToLower()];
+            if(allCharacters.ContainsKey(characterName.ToLower()))
+                return allCharacters[characterName.ToLower()];
             else if(createIfDoesNotExist)
                 return CreateCharacter(characterName);
 
@@ -42,7 +42,7 @@ namespace CHARACTERS
 
         public Character CreateCharacter(string characterName, bool revealAfterCreation = false)
         {
-            if(characters.ContainsKey(characterName.ToLower()))
+            if(allCharacters.ContainsKey(characterName.ToLower()))
             {
                 Debug.LogWarning($"A Character called '{characterName}' already exists. Did not create the character");
                 return null;
@@ -50,7 +50,7 @@ namespace CHARACTERS
 
             CHARACTER_INFO info = GetCharacterInfo(characterName);
             Character character = CreateCharacterFromInfo(info);
-            characters.Add(characterName.ToLower(), character);
+            allCharacters.Add(characterName.ToLower(), character);
 
             if(revealAfterCreation)
                 character.Show();

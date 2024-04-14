@@ -124,3 +124,21 @@ E) Las siguientes acciones son opcionales para la escena y van en un renglon nue
     - mostrarInterfaz() -> Muestra la interfaz.
       
     - ocultarInterfaz() -> Oculta la interfaz.
+
+
+F) La siguiente estructura es para CUADROS DE TEXTO (ANUNCIOS), CUADROS DE PREGUNTAS Y MOSTRAR ITEMS
+
+    1) Entre comillas va el texto del anuncio.
+        anuncio "A continuación las preguntas"
+
+    2) Entre comillas va el nombre del documento. Ese nombre aparecerá en el folder.
+        item "Certificado de Tradicion"
+    
+    3) Entre comillas va la pregunta. Todas las opciones van entre corchetes. Además, cada opción va con un guión antes y al final entre corchetes va la puntuación de esa opción.
+
+    pregunta "¿Ante qué institución se puede adelantar el trámite?"
+    {
+        -La declaración de la UMH se puede realizar a través de sentencia judicial, por común acuerdo ante notaría a través de escritura pública y ante un centro de conciliación a través de una audiencia de conciliación. [1]
+        -Solamente se requiere el transcurso del tiempo, ya que solo basta la convivencia durante dos años para que se presuma la UMH sin necesidad de ser declarada ante ninguna institución. [0]
+        -La declaración de la UMH se puede realizar a través de sentencia judicial y por común acuerdo ante notaría a través de escritura pública. [0,5]
+    }

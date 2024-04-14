@@ -5,7 +5,16 @@ using DIALOGUE;
 
 public class TestDialogueFiles : MonoBehaviour
 {
-    [SerializeField] private TextAsset fileToRead = null;
+    public static TestDialogueFiles Instance { get; private set; }
+    public TextAsset fileToRead = null;
+
+    void Awake()
+    {
+        if(Instance == null)
+            Instance = this;
+        else 
+            DestroyImmediate(gameObject);
+    }
 
     void Start()
     {

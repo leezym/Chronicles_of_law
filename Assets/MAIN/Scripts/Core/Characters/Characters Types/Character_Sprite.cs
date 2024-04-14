@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +39,7 @@ namespace CHARACTERS
 
             GetLayers();
 
-            Debug.Log($"Created Text Character: '{name}'");
+            Debug.Log($"Created Sprite Character: '{name}'");
         }
 
         private void GetLayers()
@@ -71,6 +72,13 @@ namespace CHARACTERS
 
         public Sprite GetSprite(string spriteName)
         {
+            if(config.sprites.Count > 0) //pdte revisar porque config.sprites.Count siempre es 0
+            {
+                //Debug.Log("Entra");
+                if(config.sprites.TryGetValue(spriteName, out Sprite sprite))
+                    return sprite;
+            }
+
             if(config.characterType == CharacterType.SpriteSheet)
             {
                 string[] data = spriteName.Split(SPRITESHEET_TEXT_SPRITE_DELIMITTER);

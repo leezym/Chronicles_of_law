@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace CHARACTERS
@@ -9,7 +7,7 @@ namespace CHARACTERS
     {
         public CharacterConfigData[] characters;        
         
-        public CharacterConfigData GetConfig(string characterName)
+        public CharacterConfigData GetConfig(string characterName, bool safe = true)
         {
             characterName = characterName.ToLower();
 
@@ -18,9 +16,7 @@ namespace CHARACTERS
                 CharacterConfigData data = characters[i];
 
                 if(string.Equals(characterName, data.name.ToLower()))
-                {
-                    return data.Copy();
-                }
+                    return safe ? data.Copy() : data;
             }
 
             return CharacterConfigData.Default;

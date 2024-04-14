@@ -14,13 +14,12 @@ public class TestChoicePanel : MonoBehaviour
             
             string[] choices = new string[]
             {
-                "Witness? Is that camera on?",
-                "Oh, nah!",
-                "I didn`t see nothin'!",
-                "Matta Fact- I'm blind in my left eye and 43% blind in my right eye."
+                "Cuando exista una unión marital de hecho por un lapso no inferior a dos años e impedimento legal para contraer matrimonio por parte de uno o de ambos compañeros permanentes, siempre y cuando la sociedad o sociedades conyugales anteriores hayan sido disueltas y liquidadas por lo menos un año antes de la fecha en que se inició la unión marital de hecho.",
+                "Cuando exista unión marital de hecho durante un lapso no inferior a dos años, entre un hombre y una mujer sin impedimento legal para contraer matrimonio.",
+                "Cuando exista unión marital de hecho durante un lapso no inferior a dos años, entre un hombre y una mujer sin impedimento legal para contraer matrimonio o; Cuando exista una unión marital de hecho por un lapso no inferior a dos años e impedimento legal para contraer matrimonio por parte de uno o de ambos compañeros permanentes, siempre y cuando la sociedad o sociedades conyugales anteriores hayan sido disueltas antes de la fecha en que se inició la unión marital de hecho."
             };
 
-            panel.Show("Did you wiyness anything strange?", choices);
+            panel.Show("¿Cuáles son los requisitos para presumir una UMH?", choices);
         }
     }
 }

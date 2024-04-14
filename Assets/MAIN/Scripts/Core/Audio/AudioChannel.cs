@@ -37,7 +37,7 @@ public class AudioChannel
             return existingTrack;
         }
 
-        AudioTrack track = new AudioTrack(clip, volumeCap, this);
+        AudioTrack track = new AudioTrack(clip, volumeCap, this, filePath);
 
         track.Play();
 

@@ -9,11 +9,13 @@ namespace DIALOGUE
     {
         CultureInfo culture = CultureInfo.CreateSpecificCulture("es-ES");
 
+        public string rawData { get; private set; } = string.Empty;
         public List<DIALOGUE_SEGMENT> segments;
         private const string segmentIdentifierPatter = @"\{[cCbB]\}|\{[eE][cCbB]\s\d*\,?\d*\}";
         
         public DL_DIALOGUE_DATA(string rawDialogue)
         {
+            this.rawData = rawDialogue;
             segments = RipSegments(rawDialogue);
         }
 

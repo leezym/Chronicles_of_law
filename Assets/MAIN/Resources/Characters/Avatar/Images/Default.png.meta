@@ -144,7 +144,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Coqueto
+      name: Contento
       rect:
         serializedVersion: 2
         x: 215
@@ -259,7 +259,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Coqueto: 1891028144
+      Contento: 1891028144
       Nervioso: -1090860507
       Normal: -2121712326
       Serio: -244041059

@@ -11,7 +11,7 @@ namespace DIALOGUE
         public DialogueSystemConfigSO config => _config;
         
         public DialogueContainer dialogueContainer = new DialogueContainer();
-        private ConversationManager conversationManager;
+        public ConversationManager conversationManager { get; private set; }
         private TextArchitect architect;
         [SerializeField] private CanvasGroup mainCanvas;
 
@@ -80,7 +80,10 @@ namespace DIALOGUE
             if(speakerName != "narrador")
                 dialogueContainer.nameContainer.Show(speakerName);
             else
+            {
                 HideSpeakerName();
+                dialogueContainer.nameContainer.nameText.text = "";
+            }
         }
             
         public void HideSpeakerName() => dialogueContainer.nameContainer.Hide();
@@ -91,7 +94,13 @@ namespace DIALOGUE
             return Say(conversation);
         }
 
-        public Coroutine Say(List<string> conversation)
+        public Coroutine Say(List<string> lines)
+        {
+            Conversation conversation = new Conversation(lines);
+            return conversationManager.StartConversation(conversation);
+        }
+
+        public Coroutine Say(Conversation conversation)
         {
             return conversationManager.StartConversation(conversation);
         }

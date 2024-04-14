@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DIALOGUE;
+using AYellowpaper.SerializedCollections;
 
 namespace CHARACTERS
 {
@@ -18,7 +19,10 @@ namespace CHARACTERS
 
         public float nameFontSize;
         public float dialogueFontSize;
-        
+
+        [SerializedDictionary("Path / ID", "Sprite")]
+        public SerializedDictionary<string, Sprite> sprites = new SerializedDictionary<string, Sprite>();
+
         private static Color defaultColor => DialogueSystem.Instance.config.defaultTextColor;
         private static TMP_FontAsset defaultFont => DialogueSystem.Instance.config.defaultFont;
 

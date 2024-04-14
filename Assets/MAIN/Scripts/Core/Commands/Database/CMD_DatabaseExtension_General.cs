@@ -4,11 +4,17 @@ using System.Collections.Generic;
 using COMMANDS;
 using DIALOGUE;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace COMMANDS
 {
     public class CMD_DatabaseExtension_General : CMD_DatabaseExtension
     {
+
+        private static readonly string PARAM_FILEPATH = "archivo";
+        private static readonly string PARAM_ENQUEUE = "cola";
+        private static readonly string PARAM_ITEM = "-nombre";
+
         new public static void Extend(CommandDatabase database)
         {
             database.AddCommand("mostrardialogo", new Func<IEnumerator>(ShowDialogueBox));
@@ -16,6 +22,36 @@ namespace COMMANDS
 
             database.AddCommand("mostrarinterfaz", new Func<IEnumerator>(ShowDialogueSystem));
             database.AddCommand("ocultarinterfaz", new Func<IEnumerator>(HideDialogueSystem));
+
+            database.AddCommand("cargarArchivo", new Action<string[]>(LoadNewDialogueFile)); //Cuando se hagan las interacciones sociales se integra si es necesario cambiar de escenas en las interacciones sociales (EP21 PART1)
+        }
+
+        private static void LoadNewDialogueFile(string[] data)
+        {
+            string fileName = string.Empty;
+            bool enqueue = false;
+
+            var parameters = ConvertDataToParameters(data);
+
+            parameters.TryGetValue(PARAM_FILEPATH, out fileName);
+            parameters.TryGetValue(PARAM_ENQUEUE, out enqueue, defaultValue: false);
+
+            string filePath = FilePaths.GetPathToResource(FilePaths.resources_dialogueFiles, fileName);
+            TextAsset file = Resources.Load<TextAsset>(filePath);
+
+            if(file == null)
+            {
+                Debug.LogWarning($"File '{filePath}' could not be loaded from dialogue files. Please ensure it exists within Resources!");
+                return;
+            }
+
+            List<string> lines = FileManager.ReadTextAsset(file, includeBlankLines: true);
+            Conversation newConversation = new Conversation(lines);
+
+            if(enqueue)
+                DialogueSystem.Instance.conversationManager.Enqueue(newConversation);
+            else
+                DialogueSystem.Instance.conversationManager.StartConversation(newConversation);
         }
 
         private static IEnumerator ShowDialogueBox()

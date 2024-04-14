@@ -86,9 +86,8 @@ namespace COMMANDS
                 character.Hide();
         }
 
-        public static void OpenTextBox(string[] data)
-        {
-            
+        public static void OpenTextBox(string[] data) //pdte
+        {            
             foreach (string a in data)
                 Debug.Log(a);
         }
