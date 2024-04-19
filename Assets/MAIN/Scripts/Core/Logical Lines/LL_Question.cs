@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using System.Text.RegularExpressions;
 using static DIALOGUE.LogicalLines.LogicalLineUtils.Encapsulation;
+using GAME;
 
 namespace DIALOGUE.LogicalLines
 {
@@ -12,7 +13,7 @@ namespace DIALOGUE.LogicalLines
         public string keyword => "pregunta";        
         private const string pointRegexPattern = @"\[([-+]?\d*\,?\d+)\]";
 
-        private float totlaPoints = 0f;
+        public float points = 0f;
 
         public IEnumerator Execute(DIALOGUE_LINE line)
         {
@@ -31,10 +32,9 @@ namespace DIALOGUE.LogicalLines
                 yield return null;
             
             Question selectedChoice = questions[panel.lastDecision.answerIndex];
-            totlaPoints += selectedChoice.points;
-            Debug.Log(totlaPoints);
 
-            //pdte guardar puntuaciones (totalPoints)
+            points += selectedChoice.points;
+            GameManager.Instance.SetPoints(points);
 
             DialogueSystem.Instance.conversationManager.conversation.SetProgress(data.endingIndex);
         }

@@ -3,18 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using CHARACTERS;
 
-namespace History
+namespace HISTORY
 {
     [System.Serializable]
     public class CharacterData
     { 
         public string characterName;
-        public string displayName;
         public bool enabled;
-        public Color color;
-        public int priority;
-        public bool isHighlighted;
-        public bool isFacingLeft;
         public Vector2 position;
         public CharacterConfigCache characterConfig;
 
@@ -50,25 +45,25 @@ namespace History
         {
             List<CharacterData> characters = new List<CharacterData>();
 
-            foreach(var character in CharacterManager.Instance.allCharacters)
+            foreach(Character character in CharacterManager.Instance.allCharacters)
             {
-                if(!character.Value.isVisible)
+                if(!character.isVisible)
                     continue;
                 
                 CharacterData entry = new CharacterData();
-                entry.characterName = character.Value.name;
-                entry.enabled = character.Value.isVisible;
-                entry.position = character.Value.targetPosition;
-                entry.characterConfig = new CharacterConfigCache(character.Value.config);
+                entry.characterName = character.name;
+                entry.enabled = character.isVisible;
+                entry.position = character.targetPosition;
+                entry.characterConfig = new CharacterConfigCache(character.config);
 
-                 switch(character.Value.config.characterType)
+                 switch(character.config.characterType)
                  {
                     case Character.CharacterType.Sprite:
                     case Character.CharacterType.SpriteSheet:
                         SpriteData sData = new SpriteData();
                         sData.layers = new List<SpriteData.LayerData>();
 
-                        Character_Sprite sc = character.Value as Character_Sprite;
+                        Character_Sprite sc = character as Character_Sprite;
                         foreach(var layer in sc.layers)
                         {
                             var layerData = new SpriteData.LayerData();
@@ -85,6 +80,49 @@ namespace History
             }
 
             return characters;
+        }
+
+        public static void Apply(List<CharacterData> data)
+        {
+            List<string> cache = new List<string>();
+
+            foreach(CharacterData characterData in data)
+            {
+                Character character = CharacterManager.Instance.GetCharacter(characterData.characterName, createIfDoesNotExist: true);
+                character.name = characterData.characterName;
+                character.SetPosition(characterData.position);
+                character.isVisible = characterData.enabled;
+
+                switch(character.config.characterType)
+                {
+                    case Character.CharacterType.Sprite:
+                    case Character.CharacterType.SpriteSheet:
+                        SpriteData sData = JsonUtility.FromJson<SpriteData>(characterData.dataJSON);
+                        Character_Sprite sc = character as Character_Sprite;
+
+                        for(int i = 0; i < sData.layers.Count; i++)
+                        {
+                            var layer = sData.layers[i];
+                            if(sc.layers[i].renderer.sprite != null && sc.layers[i].renderer.sprite.name != layer.spriteName)
+                            {
+                                Sprite sprite = sc.GetSprite(layer.spriteName);
+                                if(sprite != null)
+                                    sc.SetSprite(sprite, i);
+                                else
+                                    Debug.LogWarning($"History State: could not load sprite '{layer.spriteName}'");
+                            }
+                        }
+                        break;
+                }
+
+                cache.Add(character.name);
+            }
+
+            foreach(Character character in CharacterManager.Instance.allCharacters)
+            {
+                if(!cache.Contains(character.name))
+                    character.isVisible = false;
+            }
         }
 
         [System.Serializable]

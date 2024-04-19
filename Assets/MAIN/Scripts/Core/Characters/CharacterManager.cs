@@ -8,7 +8,7 @@ namespace CHARACTERS
     public class CharacterManager : MonoBehaviour
     {
         public static CharacterManager Instance { get; private set; }
-        public Dictionary<string, Character> allCharacters { get; private set; } = new Dictionary<string, Character>();
+        public List<Character> allCharacters { get; private set; } = new List<Character>();
 
         private CharacterConfigSO config => DialogueSystem.Instance.config.characterConfigAsset;
 
@@ -32,8 +32,8 @@ namespace CHARACTERS
 
         public Character GetCharacter(string characterName, bool createIfDoesNotExist = false)
         {
-            if(allCharacters.ContainsKey(characterName.ToLower()))
-                return allCharacters[characterName.ToLower()];
+            if(allCharacters.Exists(character => character.name.ToLower() == characterName.ToLower()))
+                return allCharacters.Find(character => character.name.ToLower() == characterName.ToLower());
             else if(createIfDoesNotExist)
                 return CreateCharacter(characterName);
 
@@ -41,16 +41,16 @@ namespace CHARACTERS
         }
 
         public Character CreateCharacter(string characterName, bool revealAfterCreation = false)
-        {
-            if(allCharacters.ContainsKey(characterName.ToLower()))
+        {            
+            if(allCharacters.Exists(character => character.name.ToLower() == characterName.ToLower()))
             {
                 Debug.LogWarning($"A Character called '{characterName}' already exists. Did not create the character");
                 return null;
             }
-
+            
             CHARACTER_INFO info = GetCharacterInfo(characterName);
             Character character = CreateCharacterFromInfo(info);
-            allCharacters.Add(characterName.ToLower(), character);
+            allCharacters.Add(character);
 
             if(revealAfterCreation)
                 character.Show();

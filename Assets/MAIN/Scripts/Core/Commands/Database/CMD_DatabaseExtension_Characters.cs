@@ -25,7 +25,9 @@ namespace COMMANDS
             string characterName = data[0];
             
             Character character = CharacterManager.Instance.CreateCharacter(characterName);
-            character.Show();
+            
+            if(character != null)
+                character.Show();
         }
 
         public static IEnumerator MoveCharacter(string[] data)

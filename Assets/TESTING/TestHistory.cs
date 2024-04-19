@@ -1,19 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
-using History;
 using UnityEngine;
+using HISTORY;
 
-public class TestHistory : MonoBehaviour
+namespace TESTING
 {
-    public DialogueData data;
-    public List<AudioData> audioData;    
-    public List<GraphicData> graphicData;
-    public List<CharacterData> characterData;
-    void Update()
+    public class TestHistory : MonoBehaviour
     {
-        data = DialogueData.Capture();
-        audioData = AudioData.Capture();
-        graphicData = GraphicData.Capture();
-        characterData = CharacterData.Capture();
+        public HistoryState state = new HistoryState();
+
+        void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.H))
+            {
+                state = HistoryState.Capture();
+            }
+
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                state.Load();
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace History
+namespace HISTORY
 {
     [System.Serializable]
     public class AudioData
@@ -12,7 +12,6 @@ namespace History
         public string trackName;
         public string trackPath;
         public float trackVolume;
-        public bool loop;
         
         public AudioData(AudioChannel channel)
         {
@@ -25,7 +24,6 @@ namespace History
             trackName = track.name;
             trackPath = track.path;
             trackVolume = track.volume;
-            loop = track.loop;
         }
 
         public static List<AudioData> Capture()
@@ -42,6 +40,35 @@ namespace History
             }
 
             return audioChannels;
+        }
+
+        public static void Apply(List<AudioData> data)
+        {
+            List<int> cache = new List<int>();
+
+            foreach(var channelData in data)
+            {
+                AudioChannel channel = AudioManager.Instance.TryGetChannel(channelData.channel, createIfDoesNotExist: true);
+                if(channel.activeTrack == null || channel.activeTrack.name != channelData.trackName)
+                {
+                    AudioClip clip = HistoryCache.LoadAudio(channelData.trackName);
+                    if(clip != null)
+                    {
+                        channel.StopTrack(immediate: true);
+                        channel.PlayTrack(clip, channelData.trackVolume, channelData.trackPath);
+                    }
+                    else
+                        Debug.LogWarning($"History State: Could not load audio track '{channelData.trackPath}'");
+                }
+
+                cache.Add(channelData.channel);
+            }
+
+            foreach(var channel in AudioManager.Instance.channels)
+            {
+                if(!cache.Contains(channel.Value.channelIndex))
+                    channel.Value.StopTrack(immediate: true);
+            }
         }
     }
 }

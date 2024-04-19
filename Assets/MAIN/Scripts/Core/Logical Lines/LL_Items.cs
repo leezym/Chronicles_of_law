@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using static DIALOGUE.LogicalLines.LogicalLineUtils.Encapsulation;
+using GAME;
 
 namespace DIALOGUE.LogicalLines
 {
@@ -29,7 +30,16 @@ namespace DIALOGUE.LogicalLines
             FolderPanel folderPanel = FolderPanel.Instance;
             
             itemsPanel.Show(sprite);
-            folderPanel.CreateItemPrefab(sprite, name);
+
+            if (!GameManager.Instance.items.TryGetValue(name, out _))
+            {
+                folderPanel.CreateItemPrefab(sprite, name);
+                folderPanel.AddItemPrefab(sprite, name);
+            }
+            else
+            {
+                Debug.LogWarning($"A item called '{name}' already exists. Did not create the item");
+            }            
 
             while(itemsPanel.isWaitingOnUserChoice)
                 yield return null;

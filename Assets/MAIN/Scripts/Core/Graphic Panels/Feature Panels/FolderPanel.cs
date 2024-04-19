@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.WSA;
+using GAME;
 
 public class FolderPanel : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class FolderPanel : MonoBehaviour
 
     [SerializeField] private CanvasGroup canvasGroup;    
     [SerializeField] private GameObject itemButtonPrefab;
-    [SerializeField] private GridLayoutGroup buttonLayoutGroup;
+    public GridLayoutGroup buttonLayoutGroup;
 
     private CanvasGroupController cg = null;
 
@@ -63,4 +64,21 @@ public class FolderPanel : MonoBehaviour
         TextMeshProUGUI text = newButton.GetComponentInChildren<TextMeshProUGUI>();
         text.text = name;
     }
+
+    public void AddItemPrefab(Sprite item, string name)
+    {
+        GameManager.Instance.items.Add(name, item);
+    }
+
+    public void ResetFolder()
+    {
+        Transform parent = buttonLayoutGroup.transform;
+        foreach (Transform child in parent)
+        {
+            if (child.name == "Button(Clone)")
+            {
+                Destroy(child.gameObject);
+            }
+        }
+    }     
 }

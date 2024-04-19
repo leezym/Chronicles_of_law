@@ -12,7 +12,6 @@ public class AudioTrack
 
     private AudioChannel channel;
     private AudioSource source;
-    public bool loop => source.loop;
     public float volumeCap { get; private set; }
 
     public bool isPlaying => source.isPlaying;

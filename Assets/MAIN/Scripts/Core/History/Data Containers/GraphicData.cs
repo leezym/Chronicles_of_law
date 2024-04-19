@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
-namespace History
+namespace HISTORY
 {
     [System.Serializable]
     public class GraphicData
@@ -58,6 +59,49 @@ namespace History
             }
 
             return graphicPanels;
+        }
+
+        public static void Apply(List<GraphicData> data)
+        {
+            List<string> cache = new List<string>();
+
+            foreach(var panelData in data)
+            {
+                var panel = GraphicPanelManager.Instance.GetPanel(panelData.panelName);
+
+                foreach(var layerData in panelData.layers)
+                {
+                    var layer = panel.GetLayer(layerData.depth, createIfDoesNotExist: true);
+                    if(layer.currentGraphic == null || layer.currentGraphic.graphicName != layerData.graphicName)
+                    {
+
+                        if(!layerData.isVideo)
+                        {
+                            Texture tex = HistoryCache.LoadImage(layerData.graphicPath);
+                            if(tex != null)
+                                layer.SetTexture(tex, filePath: layerData.graphicPath);
+                            else
+                            Debug.LogWarning($"History State: Could not load image from path '{layerData.graphicPath}'");
+                        }
+                        else
+                        {
+                            VideoClip clip = HistoryCache.LoadVideo(layerData.graphicPath);
+                            if(clip != null)
+                                layer.SetVideo(clip, filePath: layerData.graphicPath);
+                            else
+                                Debug.LogWarning($"History State: Could not load video from path '{layerData.graphicPath}'");
+                        }
+                    }
+                }
+
+                cache.Add(panel.panelName);
+            }
+
+            foreach(var panel in GraphicPanelManager.Instance.allPanels)
+            {
+                if(!cache.Contains(panel.panelName))
+                    panel.Clear();
+            }
         }
     }
 }
