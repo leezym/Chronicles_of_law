@@ -24,11 +24,11 @@ namespace DIALOGUE
             if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
                 PromptAdvance();            
             
-            /*if(Input.GetKeyDown(KeyCode.RightArrow))
+            if(Input.GetKeyDown(KeyCode.RightArrow))
                 GoForward();
 
             if(Input.GetKeyDown(KeyCode.LeftArrow))
-                GoBack();*/
+                GoBack();
         }
 
         public void PromptAdvance()
@@ -37,7 +37,7 @@ namespace DIALOGUE
                 DialogueSystem.Instance.OnUserPrompt_Next();
         }
 
-        /*public void GoBack()
+        public void GoBack()
         {
             if(!DialogueSystem.Instance.conversationManager.isWaitingOnAutoTimer)
                 HistoryManager.Instance.GoBack();
@@ -47,7 +47,7 @@ namespace DIALOGUE
         {
             if(!DialogueSystem.Instance.conversationManager.isWaitingOnAutoTimer)
                 HistoryManager.Instance.GoForward();
-        }*/
+        }
     }
 }
 

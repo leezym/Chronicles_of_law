@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace HISTORY
 {
-    //[RequireComponent(typeof(HistoryNavigation))]
+    [RequireComponent(typeof(HistoryNavigation))]
     public class HistoryManager : MonoBehaviour
     {
         public const int HISTORY_CACHE_LIMIT = 20;
@@ -15,7 +15,7 @@ namespace HISTORY
         private HistoryNavigation navigation;
         public HistoryState state;
 
-        /*void Awake()
+        void Awake()
         {
             Instance = this;
             navigation = GetComponent<HistoryNavigation>();    
@@ -41,21 +41,6 @@ namespace HISTORY
         }
 
         public void GoForward() => navigation.GoFoward();
-        public void GoBack() => navigation.GoBack();*/
-
-         void Awake()
-        {
-            Instance = this;
-        }
-
-        public void SaveHistory()
-        {
-            state = HistoryState.Capture();
-        }
-
-        public void LoadHistory()
-        {
-            state.Load();    
-        }
+        public void GoBack() => navigation.GoBack();
     }
 }
