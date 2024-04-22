@@ -12,7 +12,7 @@ public class TestGameSave : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.S))
+        /*if(Input.GetKeyDown(KeyCode.S))
         {
             VNGameSave.activeFile.Save();
         }
@@ -26,6 +26,23 @@ public class TestGameSave : MonoBehaviour
             {
                 Debug.LogError($"Do something because we found an error. {e.ToString()}");
             }
+        }*/
+    }
+
+    public void Save()
+    {
+        VNGameSave.activeFile.Save();
+    }
+
+    public void Load()
+    {
+        try
+        {
+            save = VNGameSave.Load($"{FilePaths.gameSaves}Caso1.Facil.DerechoFamilia{VNGameSave.FILE_TYPE}", activateOnLoad: true);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Do something because we found an error. {e.ToString()}");
         }
     }
 }

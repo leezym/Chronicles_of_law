@@ -1,4 +1,4 @@
-reproducir(-musica "acustico" -vol 0,1); configCapasMultimedia(-panel fondo -media "background_3")
+reproducir(-musica "acustico" -vol 0,8); configCapasMultimedia(-panel fondo -media "consultorio")
 
 Entra Alfonso García en 0,5:0 [Nervioso] "Buen día {EC 1} ¿Podría decirme su nombre?" Ocultar("Alfonso García")
 Entra Alexandra Motato en 0,5:0 [Serio] "Buenas tardes, mi nombre es Lionel Messi {C} Vengo porque saqué un crédito de libre consumo para comprar una vivienda y vivir con mi pareja en ese momento, {C} pero terminamos antes de comprar la vivienda y yo ya había sacado el crédito a mi nombre." Ocultar("Alexandra Motato")
