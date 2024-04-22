@@ -17,7 +17,6 @@ namespace COMMANDS
             database.AddCommand("mover", new Func<string[], IEnumerator>(MoveCharacter));
             database.AddCommand("mostrar", new Func<string[], IEnumerator>(ShowAll));
             database.AddCommand("ocultar", new Func<string[], IEnumerator>(HideAll));
-            database.AddCommand("abrirTexto", new Action<string[]>(OpenTextBox));
         }
 
         public static void CreateCharacter(string[] data)
@@ -77,6 +76,7 @@ namespace COMMANDS
             foreach(string s in data)
             {
                 Character character = CharacterManager.Instance.GetCharacter(s, createIfDoesNotExist: false);
+                Debug.Log("adasd: "+character);
                 if(character != null)
                     characters.Add(character);
             }
@@ -86,12 +86,6 @@ namespace COMMANDS
 
             foreach(Character character in characters)
                 character.Hide();
-        }
-
-        public static void OpenTextBox(string[] data) //pdte
-        {            
-            foreach (string a in data)
-                Debug.Log(a);
         }
     }
 }

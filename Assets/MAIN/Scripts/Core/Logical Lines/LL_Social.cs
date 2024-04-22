@@ -13,7 +13,7 @@ namespace DIALOGUE.LogicalLines
         {
             var currentConversation = DialogueSystem.Instance.conversationManager.conversation;
             var progress = DialogueSystem.Instance.conversationManager.conversationProgress;
-            EncapsulatedData data = RipEncapsulationData(currentConversation, progress);
+            EncapsulatedData data = RipEncapsulationData(currentConversation, progress, ripHeaderAndEncapsulators: true, parentStartingIndex: currentConversation.fileStartIndex);
             List<Social> socials = GetChoicesFromData(data);
 
             string title = line.dialogueData.rawData;
@@ -27,8 +27,8 @@ namespace DIALOGUE.LogicalLines
             
             Social selectedChoice = socials[panel.lastDecision.answerIndex];
 
-            Conversation newConversation = new Conversation(selectedChoice.resultLines);
-            DialogueSystem.Instance.conversationManager.conversation.SetProgress(data.endingIndex);
+            Conversation newConversation = new Conversation(selectedChoice.resultLines, file: currentConversation.file, fileStartIndex: selectedChoice.startIndex, fileEndIndex: selectedChoice.endIndex);
+            DialogueSystem.Instance.conversationManager.conversation.SetProgress(data.endingIndex - currentConversation.fileStartIndex);
             DialogueSystem.Instance.conversationManager.EnqueuePriority(newConversation);
         }
 
@@ -49,12 +49,16 @@ namespace DIALOGUE.LogicalLines
                 resultLines = new List<string>()
             };
 
-            foreach (var line in data.lines.Skip(1))
+            int socialIndex = 0, i = 0;
+            for(i = 1; i < data.lines.Count; i++)
             {
+                var line = data.lines[i];
                 if(IsChoiceStart(line) && encapsulationDepth == 1)
                 {
                     if(!isFirstChoice)
                     {
+                        social.startIndex = data.startingIndex + (socialIndex + 1);
+                        social.endIndex = data.startingIndex + (i - 1);
                         socials.Add(social);
                         social = new Social
                         {
@@ -63,6 +67,7 @@ namespace DIALOGUE.LogicalLines
                         };
                     }     
 
+                    socialIndex = i;
                     social.title = line.Trim().Substring(1);
                     isFirstChoice = false;
 
@@ -73,7 +78,11 @@ namespace DIALOGUE.LogicalLines
             }
 
             if(!socials.Contains(social))
+            {
+                social.startIndex = data.startingIndex + (socialIndex + 1);
+                social.endIndex = data.startingIndex + (i - 2);
                 socials.Add(social);
+            }
 
             return socials;
         }
@@ -108,6 +117,8 @@ namespace DIALOGUE.LogicalLines
         {
             public string title;
             public List<string> resultLines;
+            public int startIndex;
+            public int endIndex;
         }
     }
 }

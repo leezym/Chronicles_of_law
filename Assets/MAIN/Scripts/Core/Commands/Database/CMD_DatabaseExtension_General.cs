@@ -26,7 +26,7 @@ namespace COMMANDS
             database.AddCommand("cargarArchivo", new Action<string[]>(LoadNewDialogueFile)); //Cuando se hagan las interacciones sociales se integra si es necesario cambiar de escenas en las interacciones sociales (EP21 PART1)
         }
 
-        private static void LoadNewDialogueFile(string[] data)
+        private static void LoadNewDialogueFile(string[] data) //pdte cambio de escena
         {
             string fileName = string.Empty;
             bool enqueue = false;

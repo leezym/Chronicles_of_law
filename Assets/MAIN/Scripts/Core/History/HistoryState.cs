@@ -7,19 +7,19 @@ namespace HISTORY
     [System.Serializable]
     public class HistoryState
     {
-        /*public DialogueData dialogue;
+        public DialogueData dialogue;
         public List<CharacterData> characters;
         public List<AudioData> audio;
-        public List<GraphicData> graphics;*/
+        public List<GraphicData> graphics;
         public GameData game;
 
         public static HistoryState Capture()
         {
             HistoryState state = new HistoryState();
-            //state.dialogue = DialogueData.Capture(); // solo si se necesita arrancar desde el ultimo punto (checkpoint) o se necesita un historial
-            //state.characters = CharacterData.Capture();
-            //state.audio = AudioData.Capture();
-            //state.graphics = GraphicData.Capture();
+            state.dialogue = DialogueData.Capture(); // solo si se necesita arrancar desde el ultimo punto (checkpoint) o se necesita un historial
+            state.characters = CharacterData.Capture();
+            state.audio = AudioData.Capture();
+            state.graphics = GraphicData.Capture();
             state.game = GameData.Capture();
 
             return state;
@@ -27,10 +27,10 @@ namespace HISTORY
 
         public void Load()
         {
-            //DialogueData.Apply(dialogue);
-            //CharacterData.Apply(characters);
-            //AudioData.Apply(audio);
-            //GraphicData.Apply(graphics);
+            DialogueData.Apply(dialogue);
+            CharacterData.Apply(characters);
+            AudioData.Apply(audio);
+            GraphicData.Apply(graphics);
             GameData.Apply(game);
         }
     }

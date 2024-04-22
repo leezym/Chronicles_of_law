@@ -1,0 +1,144 @@
+A) La escena será escrita por renglones. Para desplazarse entre estos, el usuario usará el clic izquierdo, enter o barra espaciadora.
+    
+    * En este ejemplo, el personaje entra, se muestra el dialogo y al final se oculta. Todo de una sola vez.
+        entra Personaje "Dialogo del personaje de ejemplo" ocultar("Personaje")
+
+    * En este ejemplo, el personaje entra y se muestra el dialogo. El usuario interactúa (clic izquierdo, enter o barra espaciadora ) y ahora si, el personaje se oculta.
+        entra Personaje2 "Dialogo del personaje de ejemplo"
+        ocultar("Personaje")
+
+
+B) Los siguientes comandos van encerrados en {} y dentro de los dialogos para crear dinamismo en este. Para desplazarse entre estos, el usuario usará el clic izquierdo, enter o barra espaciadora.
+
+    - C -> Cuando el usuario usa el clic izquierdo, enter o barra espaciadora, continua con el dialogo en la misma ventana.
+    - B -> Cuando el usuario usa el clic izquierdo, enter o barra espaciadora, continua con el dialogo eliminando el dialogo previo.
+    - EC 0 -> Espera un tiempo para continuar con el dialogo en la misma ventana. El numero indica la cantidad de segundos que debe esperar y toma valores decimales >= 0.
+    - EB 0 -> Espera un tiempo para continuar con el dialogo elimnando el dialogo previo. El numero indica la cantidad de segundos que debe esperar y toma valores decimales >= 0.
+
+    * En este ejemplo, se muestra "Este verano no voy a ir a la playa...". Luego el usuario interactúa para continuar con el dialogo. Finalmente se muestra en la misma ventana "No me gusta."
+        entra Personaje "Este verano no voy a ir a la playa...{C} No me gusta."
+    
+    * En este ejemplo, se muestra "¿Prefieres ir...". Luego se espera 1seg y finalmente se muestra en la misma ventana "a la montaña?"
+        entra Chica "¿Prefieres ir...{EC 0,8} a la montaña?"
+
+    * En este ejemplo, se muestra "No, me quedaré en mi casa,". Luego el usuario interactúa para continuar con el dialogo. Finalmente se muestra eliminando el dialogo previo "porque tengo que arreglarla un poco."
+        Personaje "No, me quedaré en mi casa,{B} porque tengo que arreglarla un poco."
+
+    * En este ejemplo, se muestra "Entiendo.". Luego se espera 2seg y finalmente se muestra eliminando el dialogo previo "¡Buena suerte!"
+        Chica "Entiendo.{EC 2} ¡Buena suerte!"
+
+
+C) Las siguientes acciones son opcionales para los personajes y se colocan antes del dialogo:
+
+    - entra -> es el equivalente a crear(). Le indica al personaje que entre por primera vez o que vuelva a aparecer en caso de estar oculto.
+        * En este ejemplo, se crea y se muestra el personaje en la escena.
+            entra Chica "Hola"
+
+    - en X:Y -> le indica al personaje donde aparecer según las coordenadas X,Y en pantalla. Toma valores entre 0 y 1.
+        * En este ejemplo, se indica la posicion (0,0) de la escena para el personaje.
+            Chica en 0:0 "Hola"
+            
+    - [0:xxxx,1:xxxx] -> le indica al personaje el nombre del Sprite del Cuerpo y Cara que debe aparecer. En el 0 va el cuerpo y en el 1 va la cara. En caso de solo cambiar la Cara, se usa [xxxx].
+        * En este ejemplo, se indica al personaje una postura Idle y rostro Triste en la escena.
+            Chica [0:Idle,1:Triste] "Hola"
+        * En este ejemplo, se indica el rostro Triste en la escena.
+            Chica [Triste] "Hola" 
+
+
+D) Las siguientes acciones son opcionales para los personajes y van en un renglo nuevo (antes o despues del dialogo) o despues del dialogo en el mismo renglon. Depende de lo que se quiera mostrar en la escena (Ver item A):
+
+    - [esperar] -> se usa con las acciones mostrar(), ocultar() o mover(). Indica que la accion que lo acompaña debe finalizar antes de comenzar con otra.
+        * En este ejemplo, la chica se mueve y cuando llega a la posición indicada, se oculta
+            entra Chica en 0:1 [Feliz] "Dialogo del personaje de ejemplo" [esperar]mover("Chica" -x 0 -y 0); ocultar("Chica")
+            
+        * En este ejemplo, la chica se mueve y al mismo tiempo se oculta
+            entra Chica en 0:1 [Feliz] "Dialogo del personaje de ejemplo" mover("Chica" -x 0 -y 0); ocultar("Chica")
+
+    - crear("Nombre1" "Nombre2" "Nombre3") -> crea uno o más personajes y los muestra en la escena
+        1) 
+            entra Personaje [0:Cuerpo,1:Feliz] "Dialogo del personaje de ejemplo"
+
+        2)
+            entra Personaje [Feliz] "Dialogo del personaje de ejemplo"
+
+        3)
+            crear("Personaje")
+            Personaje [0:Cuerpo,1:Feliz] "Dialogo del personaje de ejemplo"
+
+        4)
+            crear("Personaje")
+            Personaje [Feliz] "Dialogo del personaje de ejemplo"
+
+    - mostrar("Nombre1" "Nombre2" "Nombre3") -> muestra uno o más personajes
+        1)
+            entra Personaje [Feliz] "Dialogo del personaje de ejemplo" mostrar("Personaje")
+
+        2)
+            entra Personaje [Feliz] "Dialogo del personaje de ejemplo"
+            mostrar("Personaje")
+
+    - ocultar("Nombre1" "Nombre2" "Nombre3") -> oculta uno o más personajes
+        1)
+            entra Personaje [Feliz] "Dialogo del personaje de ejemplo" ocultar("Personaje")
+
+        2)
+            entra Personaje [Feliz] "Dialogo del personaje de ejemplo"
+            ocultar("Personaje")
+
+    - mover("Nombre1" -x 0,3 -y 0 -vel 1) -> mueve un personaje según las coordenadas X,Y en patalla. Toma valores entre 0 y 1. De manera opcional, se puede indicar la velocidad del movimeinto, que toma valores decimales >= 0. Sino se especifica la velocidad por defecto será 2.
+        1)
+            entra Personaje en 1:1 "Dialogo del personaje de ejemplo"
+            
+        2)
+            crear("Personaje"), [esperar]mover("Personaje" -x 1 -y 1)
+            Personaje "Dialogo del personaje de ejemplo"
+
+
+E) Las siguientes acciones son opcionales para la escena y van en un renglon nuevo (antes o despues del dialogo). Depende de lo que se quiera mostrar en la escena:
+    - configCapasMultimedia(-panel fondo -capa 0 -media "Paisaje" -vel 0,5 -audio true) -> Configura el background de la escena (imagen o video). La función pide lo sgtes parametros:
+        panel -> indica donde se va a colocar el background, se puede escoger entre fondo (detrás de toda la escena), cinematica (encima de personajes) y primerPlano (encima de personajes y cuadro de dialogo).
+
+        capa -> es opcional. Si el background esta compuesto por varias imagenes que se superponen una sobre otra como capas, entonces se indica el numero de la capa. Puede tomar valores enteros >= 0. Sino se especifica la capa por defecto será 0.
+        
+        media -> indica el nombre del archivo multimedia (imagen o video)
+
+        vel -> es opcional. Indica la velocidad con la que aparece, que toma valores decimales >= 0. Sino se especifica la velocidad por defecto será 1.
+
+        audio -> solo para videos y es opcional. indica si se reproduce o no el sonido del video (background) en caso de tener. Se coloca true o false. Sino se especifica por defecto será true.
+
+    - borrarCapasMultimedia(-panel fondo -capa 0 -vel 0,5) -> Borra el background de la escena (imagen o video). La función pide lo sgtes parametros:
+        panel -> indica de donde se va a borrar el background, se puede escoger entre fondo (detrás de toda la escena), cinematica (encima de personajes) y primerPlano (encima de personajes y cuadro de dialogo).
+
+        capa -> es opcional. Si el background esta compuesto por varias imagenes que se superponen una sobre otra como capas, entonces se indica el numero de la capa. Puede tomar valores enteros >= 0. Sino se especifica la capa por defecto será 0.
+        
+        vel -> es opcional. indica la velocidad con la que desaparece, que toma valores decimales >= 0. Sino se especifica la velocidad por defecto será 1.
+
+    - reproducir(-musica "Musica de fondo" -vol 0,5) -> Reproduce música de fondo. Se indica el nombre de la canción y el volumen toma valores decimales entre 0 y 1. Sino se especifica el volumen por defecto será 1.
+    
+    - detener() -> Detiene la música de fondo.
+
+    - mostrarDialogo() -> Muestra el cuadro de dialogo.
+      
+    - ocultarDialogo() -> Oculta el cuadro de dialogo.
+
+    - mostrarInterfaz() -> Muestra la interfaz.
+      
+    - ocultarInterfaz() -> Oculta la interfaz.
+
+
+F) La siguiente estructura es para CUADROS DE TEXTO (ANUNCIOS), CUADROS DE PREGUNTAS Y MOSTRAR ITEMS
+
+    1) Entre comillas va el texto del anuncio.
+        anuncio "A continuación las preguntas"
+
+    2) Entre comillas va el nombre del documento. Ese nombre aparecerá en el folder.
+        item "Certificado de Tradicion"
+    
+    3) Entre comillas va la pregunta. Todas las opciones van entre corchetes. Además, cada opción va con un guión antes y al final entre corchetes va la puntuación de esa opción.
+
+    pregunta "¿Ante qué institución se puede adelantar el trámite?"
+    {
+        -La declaración de la UMH se puede realizar a través de sentencia judicial, por común acuerdo ante notaría a través de escritura pública y ante un centro de conciliación a través de una audiencia de conciliación. [1]
+        -Solamente se requiere el transcurso del tiempo, ya que solo basta la convivencia durante dos años para que se presuma la UMH sin necesidad de ser declarada ante ninguna institución. [0]
+        -La declaración de la UMH se puede realizar a través de sentencia judicial y por común acuerdo ante notaría a través de escritura pública. [0,5]
+    }

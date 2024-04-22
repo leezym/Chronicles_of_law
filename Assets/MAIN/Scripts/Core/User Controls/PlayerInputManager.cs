@@ -4,12 +4,23 @@ using System.Collections.Generic;
 using HISTORY;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace DIALOGUE
 {
     public class PlayerInputManager : MonoBehaviour
     {
         private const string CLIC_SOUND_PATH = "Audio/SFX/interface-click";
+        public GameObject MENU;
+        public GameObject LAYERS;
+
+        public Button LOAD;
+        public TextAsset fileToRead = null;
+
+        void Start()
+        {
+            //LOAD.interactable = HistoryManager.Instance.isSaved ? true : false;
+        }
 
         void Update()
         {
@@ -22,13 +33,7 @@ namespace DIALOGUE
             
             // Next
             if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
-                PromptAdvance();            
-            
-            /*if(Input.GetKeyDown(KeyCode.RightArrow))
-                GoForward();
-
-            if(Input.GetKeyDown(KeyCode.LeftArrow))
-                GoBack();*/
+                PromptAdvance();
         }
 
         public void PromptAdvance()
@@ -37,16 +42,33 @@ namespace DIALOGUE
                 DialogueSystem.Instance.OnUserPrompt_Next();
         }
 
-        /*public void GoBack()
+        /*public void NewGame()
         {
-            if(!DialogueSystem.Instance.conversationManager.isWaitingOnAutoTimer)
-                HistoryManager.Instance.GoBack();
+            HistoryManager.Instance.NewHistory();
+
+            MENU.SetActive(false);
+            LAYERS.SetActive(true);
+
+            List<string> lines = FileManager.ReadTextAsset(fileToRead);        
+            DialogueSystem.Instance.Say(lines);
         }
 
-        public void GoForward()
+        public void ContinueGame()
         {
-            if(!DialogueSystem.Instance.conversationManager.isWaitingOnAutoTimer)
-                HistoryManager.Instance.GoForward();
+            HistoryManager.Instance.LoadHistory();
+
+            MENU.SetActive(false);
+            LAYERS.SetActive(true);
+
+            List<string> lines = FileManager.ReadTextAsset(fileToRead);        
+            DialogueSystem.Instance.Say(lines);
+        }
+
+        public void ExitGame()
+        {
+            MENU.SetActive(true);
+            LAYERS.SetActive(false);
+            LOAD.interactable = HistoryManager.Instance.isSaved ? true : false;
         }*/
     }
 }
