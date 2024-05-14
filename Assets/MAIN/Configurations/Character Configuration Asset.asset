@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Character Configuration Asset
   m_EditorClassIdentifier: 
   characters:
-  - name: Avatar
+  - name: Avatar Lindo
     characterType: 2
     nameColor: {r: 0.7832923, g: 0.3537736, b: 1, a: 1}
     dialogueColor: {r: 1, g: 1, b: 1, a: 1}
@@ -23,17 +23,17 @@ MonoBehaviour:
     dialogueFontSize: 40
     sprites:
       _serializedList:
-      - Key: Sonrojado
+      - Key: sonrojado
         Value: {fileID: 701462834, guid: 4ff8dac0639563345a9f55b469f158df, type: 3}
-      - Key: Tranquilo
+      - Key: tranquilo
         Value: {fileID: 1542614295, guid: 4ff8dac0639563345a9f55b469f158df, type: 3}
-      - Key: Coqueto
+      - Key: coqueto
         Value: {fileID: 1891028144, guid: 4ff8dac0639563345a9f55b469f158df, type: 3}
-      - Key: Assets/MAIN/Resources/Characters/Avatar/Images/Nervioso
+      - Key: nervioso
         Value: {fileID: -1090860507, guid: 4ff8dac0639563345a9f55b469f158df, type: 3}
-      - Key: Normal
+      - Key: normal
         Value: {fileID: -2121712326, guid: 4ff8dac0639563345a9f55b469f158df, type: 3}
-      - Key: Serio
+      - Key: serio
         Value: {fileID: -244041059, guid: 4ff8dac0639563345a9f55b469f158df, type: 3}
   - name: Personaje
     characterType: 2
@@ -45,19 +45,49 @@ MonoBehaviour:
     dialogueFontSize: 40
     sprites:
       _serializedList:
-      - Key: Cuerpo
+      - Key: cuerpo
         Value: {fileID: -1143345523, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
-      - Key: Serio
+      - Key: serio
         Value: {fileID: -2009307320, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
-      - Key: Enojado
+      - Key: enojado
         Value: {fileID: 443419484, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
-      - Key: Feliz
+      - Key: feliz
         Value: {fileID: -1005220912, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
-      - Key: Normal
+      - Key: normal
         Value: {fileID: 1754228493, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
-      - Key: Preocupado
+      - Key: preocupado
         Value: {fileID: -222796243, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
-      - Key: Sonrojado
+      - Key: sonrojado
         Value: {fileID: -799832430, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
-      - Key: Tranquilo
+      - Key: tranquilo
         Value: {fileID: 1373178626, guid: 0e6f8fac9445fe6488cfaa4753133b38, type: 3}
+  - name: "Alfonso Garc\xEDa"
+    characterType: 1
+    nameColor: {r: 0.5849056, g: 0.10340697, b: 0.06345675, a: 1}
+    dialogueColor: {r: 1, g: 1, b: 1, a: 1}
+    nameFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    dialogueFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    nameFontSize: 40
+    dialogueFontSize: 40
+    sprites:
+      _serializedList:
+      - Key: tranquilo
+        Value: {fileID: 1888348552, guid: 71e5ff5dc8c82bb4495a600d29601efd, type: 3}
+      - Key: serio
+        Value: {fileID: -1857552214, guid: 51eea68da5b324d429e215b986317ff4, type: 3}
+      - Key: nervioso
+        Value: {fileID: -1857552214, guid: 51eea68da5b324d429e215b986317ff4, type: 3}
+  - name: Alexandra Motato
+    characterType: 1
+    nameColor: {r: 0.8301887, g: 0.70186085, b: 0.19971518, a: 1}
+    dialogueColor: {r: 1, g: 1, b: 1, a: 1}
+    nameFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    dialogueFont: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    nameFontSize: 40
+    dialogueFontSize: 40
+    sprites:
+      _serializedList:
+      - Key: preocupado
+        Value: {fileID: -769017705, guid: 37b349612eb7bc54ab67d195a509ac1f, type: 3}
+      - Key: serio
+        Value: {fileID: 830280477, guid: 478f0f72decc89d4087f770ee71993cf, type: 3}

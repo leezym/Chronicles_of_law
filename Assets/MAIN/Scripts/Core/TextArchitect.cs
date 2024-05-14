@@ -55,7 +55,6 @@ public class TextArchitect
     /// </summary>
     /// <param name="text"></param>
     /// <return></return>
-
     public Coroutine Append(string text)
     {
         preText = tmpro.text;
@@ -64,6 +63,21 @@ public class TextArchitect
         Stop();
         buildProcess = tmpro.StartCoroutine(Building());
         return buildProcess;
+    }
+
+    /// <summary>
+    /// Immediately apply text to the object
+    /// </summary>
+    /// <param name="text"></param>
+    public void SetText(string text)
+    {
+        preText = "";
+        targetText = text;
+        
+        Stop();
+
+        tmpro.text = targetText;
+        ForceComplete();
     }
 
     private Coroutine buildProcess = null;
@@ -105,6 +119,7 @@ public class TextArchitect
         switch(DialogueSystem.Instance.buildMethod)
         {
             case DialogueSystem.BuildMethod.typewriter:
+                tmpro.ForceMeshUpdate();
                 tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
                 break;
             case DialogueSystem.BuildMethod.fade:

@@ -72,14 +72,16 @@ namespace CHARACTERS
 
         public Sprite GetSprite(string spriteName)
         {
-            if(config.sprites.Count > 0) //pdte revisar porque config.sprites.Count siempre es 0
+            if(config.sprites.Count > 0)
             {
-                //Debug.Log("Entra");
-                if(config.sprites.TryGetValue(spriteName, out Sprite sprite))
+                if(config.sprites.TryGetValue(spriteName.ToLower(), out Sprite sprite))
                     return sprite;
             }
 
-            if(config.characterType == CharacterType.SpriteSheet)
+            Debug.LogWarning($"Character '{name}' does not have a default asset art called '{spriteName}'");
+            return null;
+
+            /*if(config.characterType == CharacterType.SpriteSheet)
             {
                 string[] data = spriteName.Split(SPRITESHEET_TEXT_SPRITE_DELIMITTER);
                 Sprite[] spriteArray = new Sprite[0];
@@ -88,7 +90,7 @@ namespace CHARACTERS
                 {
                     string textureName = data[0];
                     spriteName = data[1];
-                    spriteArray = Resources.LoadAll<Sprite>($"{artAssetsDirectory}/{textureName}");                    
+                    spriteArray = Resources.LoadAll<Sprite>($"{artAssetsDirectory}/{textureName}");                   
                 }
                 else
                 {
@@ -96,14 +98,14 @@ namespace CHARACTERS
                 }
 
                 if(spriteArray.Length == 0)
-                    Debug.LogWarning($"Character '{name}' no tiene un asset art default llamado '{SPRITESHEET_DEFAULT_SHEETNAME}'");
+                    Debug.LogWarning($"Character '{name}' does not have a default asset art called '{SPRITESHEET_DEFAULT_SHEETNAME}'");
 
                 return Array.Find(spriteArray, sprite => sprite.name == spriteName);
             }
             else
             {
                 return Resources.Load<Sprite>($"{artAssetsDirectory}/{spriteName}");
-            }
+            }*/
         }
 
         public Coroutine TransitionSprite(Sprite sprite, int layer = 0, float speed = 1)

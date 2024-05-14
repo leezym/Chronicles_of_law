@@ -40,6 +40,8 @@ namespace CHARACTERS
             result.dialogueFontSize = dialogueFontSize;
             result.nameFontSize = nameFontSize;
 
+            result.sprites = sprites;
+
             return result;
         }
 
@@ -57,6 +59,8 @@ namespace CHARACTERS
                 result.dialogueColor = new Color(defaultColor.r, defaultColor.g, defaultColor.b, defaultColor.a);
                 result.dialogueFontSize = DialogueSystem.Instance.config.defaultDialogueFontSize;
                 result.nameFontSize = DialogueSystem.Instance.config.defaultNameFontSize;
+                result.sprites = new SerializedDictionary<string, Sprite>();
+
 
                 return result;
             }

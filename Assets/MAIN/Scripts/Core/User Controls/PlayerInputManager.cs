@@ -4,12 +4,23 @@ using System.Collections.Generic;
 using HISTORY;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace DIALOGUE
 {
     public class PlayerInputManager : MonoBehaviour
     {
         private const string CLIC_SOUND_PATH = "Audio/SFX/interface-click";
+        public GameObject MENU;
+        public GameObject LAYERS;
+
+        public Button LOAD;
+        public TextAsset fileToRead = null;
+
+        void Start()
+        {
+            //LOAD.interactable = HistoryManager.Instance.isSaved ? true : false;
+        }
 
         void Update()
         {
@@ -24,11 +35,11 @@ namespace DIALOGUE
             if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
                 PromptAdvance();            
             
-            if(Input.GetKeyDown(KeyCode.RightArrow))
+            /*if(Input.GetKeyDown(KeyCode.RightArrow))
                 GoForward();
 
             if(Input.GetKeyDown(KeyCode.LeftArrow))
-                GoBack();
+                GoBack();*/
         }
 
         public void PromptAdvance()
@@ -37,17 +48,22 @@ namespace DIALOGUE
                 DialogueSystem.Instance.OnUserPrompt_Next();
         }
 
-        public void GoBack()
+        /*public void GoBack()
         {
-            if(!DialogueSystem.Instance.conversationManager.isWaitingOnAutoTimer)
-                HistoryManager.Instance.GoBack();
-        }
+            HistoryManager.Instance.NewHistory();
 
-        public void GoForward()
+            MENU.SetActive(false);
+            LAYERS.SetActive(true);
+
+            List<string> lines = FileManager.ReadTextAsset(fileToRead);        
+            DialogueSystem.Instance.Say(lines);
+        }*/
+
+        /*public void ContinueGame()
         {
             if(!DialogueSystem.Instance.conversationManager.isWaitingOnAutoTimer)
                 HistoryManager.Instance.GoForward();
-        }
+        }*/
     }
 }
 

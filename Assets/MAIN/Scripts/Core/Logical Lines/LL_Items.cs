@@ -16,7 +16,7 @@ namespace DIALOGUE.LogicalLines
             string name = line.dialogueData.rawData;
 
             //Try to get the name or path to the sprite
-            string filePath = FilePaths.GetPathToResource(FilePaths.resources_itemsFiles, TestDialogueFiles.Instance.fileToRead.name+"/"+name);
+            string filePath = FilePaths.GetPathToResource(FilePaths.resources_itemsFiles, "Caso2.Intermedio.DerechoFamilia/"+name); // se debe crear un Level Manager para configurar cada caso en su respectiva variable, crear un banco de casos aleatorio
 
             Sprite sprite = Resources.Load<Sprite>(filePath);
 

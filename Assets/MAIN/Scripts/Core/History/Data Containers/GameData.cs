@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Linq;
+using AYellowpaper.SerializedCollections;
 using GAME;
 
 namespace HISTORY
@@ -11,7 +12,9 @@ namespace HISTORY
     public class GameData
     {
         public float points = 0;
-        public Dictionary<string, Sprite> items = new Dictionary<string, Sprite>();
+        //[field: SerializeField] public Dictionary<string, Sprite> items = new Dictionary<string, Sprite>();
+        [SerializedDictionary("Name", "Sprite")]
+        public SerializedDictionary<string, Sprite> items = new SerializedDictionary<string, Sprite>();
 
         public static GameData Capture()
         {
@@ -19,7 +22,8 @@ namespace HISTORY
             var gm = GameManager.Instance;
 
             data.points = gm.points;
-            data.items = gm.items.ToDictionary(entry => entry.Key, entry => entry.Value);
+            //data.items = gm.items.ToDictionary(entry => entry.Key, entry => entry.Value);
+            data.items = new SerializedDictionary<string, Sprite>(gm.items);
 
             return data;
         }
@@ -30,7 +34,8 @@ namespace HISTORY
             var fp = FolderPanel.Instance;
 
             gm.SetPoints(data.points);
-            gm.items = data.items.ToDictionary(entry => entry.Key, entry => entry.Value);
+            //gm.items = data.items.ToDictionary(entry => entry.Key, entry => entry.Value);
+            gm.items = new SerializedDictionary<string, Sprite>(data.items);
 
             fp.ResetFolder();
 

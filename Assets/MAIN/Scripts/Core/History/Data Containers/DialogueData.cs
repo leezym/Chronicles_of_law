@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using DIALOGUE;
 using UnityEngine;
-using DIALOGUE;
 using TMPro;
+using DIALOGUE;
+using System.Security.Cryptography;
 
 namespace HISTORY
 {
@@ -47,7 +47,7 @@ namespace HISTORY
             var dialogueText = ds.dialogueContainer.dialogueText;
             var nameText = ds.dialogueContainer.nameContainer.nameText;
 
-            dialogueText.text = data.currentDialogue;
+            ds.conversationManager.architect.SetText(data.currentDialogue);
             dialogueText.color = data.dialogueColor;
             dialogueText.fontSize = data.dialogueScale;
 

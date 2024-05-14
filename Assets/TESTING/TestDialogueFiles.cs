@@ -1,7 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DIALOGUE;
+using UnityEditor;
+using System.IO;
+using VISUALNOVEL;
 
 public class TestDialogueFiles : MonoBehaviour
 {
@@ -23,17 +24,14 @@ public class TestDialogueFiles : MonoBehaviour
 
     void StartConversation()
     {
-        List<string> lines = FileManager.ReadTextAsset(fileToRead);
-        
-        DialogueSystem.Instance.Say(lines);
+        string fullPath = AssetDatabase.GetAssetPath(fileToRead);
+
+        int resourcesIndex = fullPath.IndexOf("Resources/");
+        string relativePath = fullPath.Substring(resourcesIndex + 10); // "Resources/" tiene tamaño 10
+        Debug.Log(relativePath);
+
+        string filePath = Path.ChangeExtension(relativePath, null);
+
+        VNManager.Instance.LoadFile(filePath);
     }
-
-    /*void Update() {
-        if(Input.GetKeyDown(KeyCode.DownArrow))
-            DialogueSystem.Instance.dialogueContainer.Hide();
-            
-        if(Input.GetKeyDown(KeyCode.UpArrow))
-            DialogueSystem.Instance.dialogueContainer.Show();
-
-    }*/
 }

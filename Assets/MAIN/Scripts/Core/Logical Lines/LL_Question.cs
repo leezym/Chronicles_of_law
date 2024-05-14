@@ -13,13 +13,11 @@ namespace DIALOGUE.LogicalLines
         public string keyword => "pregunta";        
         private const string pointRegexPattern = @"\[([-+]?\d*\,?\d+)\]";
 
-        public float points = 0f;
-
         public IEnumerator Execute(DIALOGUE_LINE line)
         {
             var currentConversation = DialogueSystem.Instance.conversationManager.conversation;
             var progress = DialogueSystem.Instance.conversationManager.conversationProgress;
-            EncapsulatedData data = RipEncapsulationData(currentConversation, progress);
+            EncapsulatedData data = RipEncapsulationData(currentConversation, progress, ripHeaderAndEncapsulators: true);
             List<Question> questions = GetChoicesFromData(data);
             
             string title = line.dialogueData.rawData;
@@ -33,6 +31,7 @@ namespace DIALOGUE.LogicalLines
             
             Question selectedChoice = questions[panel.lastDecision.answerIndex];
 
+            float points = GameManager.Instance.GetPoints();
             points += selectedChoice.points;
             GameManager.Instance.SetPoints(points);
 
