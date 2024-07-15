@@ -17,11 +17,6 @@ namespace DIALOGUE
         public Button LOAD;
         public TextAsset fileToRead = null;
 
-        void Start()
-        {
-            //LOAD.interactable = HistoryManager.Instance.isSaved ? true : false;
-        }
-
         void Update()
         {
             //Clic sound
@@ -41,35 +36,6 @@ namespace DIALOGUE
             if(!FolderPanel.Instance.isWaitingOnUserChoice)
                 DialogueSystem.Instance.OnUserPrompt_Next();
         }
-
-        /*public void NewGame()
-        {
-            HistoryManager.Instance.NewHistory();
-
-            MENU.SetActive(false);
-            LAYERS.SetActive(true);
-
-            List<string> lines = FileManager.ReadTextAsset(fileToRead);        
-            DialogueSystem.Instance.Say(lines);
-        }
-
-        public void ContinueGame()
-        {
-            HistoryManager.Instance.LoadHistory();
-
-            MENU.SetActive(false);
-            LAYERS.SetActive(true);
-
-            List<string> lines = FileManager.ReadTextAsset(fileToRead);        
-            DialogueSystem.Instance.Say(lines);
-        }
-
-        public void ExitGame()
-        {
-            MENU.SetActive(true);
-            LAYERS.SetActive(false);
-            LOAD.interactable = HistoryManager.Instance.isSaved ? true : false;
-        }*/
     }
 }
 
