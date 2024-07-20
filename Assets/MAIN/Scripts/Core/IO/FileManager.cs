@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using UnityEngine;
 
 public class FileManager
@@ -114,17 +112,5 @@ public class FileManager
             Debug.LogError($"Error - File does not exist! '{filePath}'");
             return default(T);
         }
-    }
-
-    private static byte[] XOR(byte[] input, byte[] key)
-    {
-        byte[] output = new byte[input.Length];
-
-        for(int i = 0; i < input.Length; i++)
-        {
-            output[i] = (byte)(input[i] ^ key[i % key.Length]);
-        }
-
-        return output;
     }
 }
