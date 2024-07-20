@@ -13,21 +13,17 @@ public class VNGameSave
     public static VNGameSave activeFile = null;
 
     public const string FILE_TYPE = ".vns";
-    public const bool ENCRYPT = false; //Change if you want encrypt or not your files
     public const string TEMP_NAME = "DATA";
 
     public string filePath = $"{FilePaths.gameSaves}{TEMP_NAME}{FILE_TYPE}";
 
     public string[] activeConversations;
     public HistoryState activeState;
-
-    //public string GetFilePath() { return filePath;}
-    //public void SetFilePath(string filePath) { this.filePath = filePath;}
     public string PathReplace (string name) {return filePath.Replace(TEMP_NAME, name);}
 
     public static VNGameSave Load(string filePath, bool activateOnLoad = false)
     {
-        VNGameSave save = FileManager.Load<VNGameSave>(filePath, ENCRYPT);
+        VNGameSave save = FileManager.Load<VNGameSave>(filePath);
 
         activeFile = save;
 
@@ -42,7 +38,7 @@ public class VNGameSave
         activeConversations = GetConversationData();
 
         string saveJSON = JsonUtility.ToJson(this);
-        FileManager.Save(filePath, saveJSON, ENCRYPT);
+        FileManager.Save(filePath, saveJSON);
     }
 
     public void Activate()
