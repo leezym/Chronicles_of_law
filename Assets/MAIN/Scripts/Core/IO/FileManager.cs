@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class FileManager
 {
-    private const string KEY = "SECRETKEY";
     public static List<string> ReadTextFile(string filePath, bool includeBlankLines = true)
     {
         if(filePath.StartsWith('/'))
@@ -88,50 +87,27 @@ public class FileManager
         }
     }
 
-    public static void Save(string filePath, string JSONData, bool encrypt = false)
+    public static void Save(string filePath, string JSONData)
     {
         if(!TryCreateDirectoryFromPath(filePath))
         {
             Debug.LogError($"FAILED TO SAVE FILE '{filePath}' Please see the console for error details.");
             return;
         }
-
-        if(encrypt)
-        {
-            byte[] dataBytes = Encoding.UTF8.GetBytes(JSONData);
-            byte[] keyBytes = Encoding.UTF8.GetBytes(KEY);
-            byte[] encryptedBytes = XOR(dataBytes, keyBytes);
-
-            File.WriteAllBytes(filePath, encryptedBytes);
-        }
-        else
-        {
-            StreamWriter sw = new StreamWriter(filePath);
-            sw.Write(JSONData);
-            sw.Close();
-        }
+        
+        StreamWriter sw = new StreamWriter(filePath);
+        sw.Write(JSONData);
+        sw.Close();
 
         Debug.Log($"Saved data to file '{filePath}'");
     }
 
-    public static T Load<T>(string filePath, bool encrypt = false)
+    public static T Load<T>(string filePath)
     {
         if(File.Exists(filePath))
         {
-            if(encrypt)
-            {
-                byte[] encrptedBytes = File.ReadAllBytes(filePath);
-                byte[] keyBytes = Encoding.UTF8.GetBytes(KEY);
-                byte[] decryptedBytes = XOR(encrptedBytes, keyBytes);
-
-                string decryptedString = Encoding.UTF8.GetString(decryptedBytes);
-                return JsonUtility.FromJson<T>(decryptedString);
-            }
-            else
-            {
-                string JSONData = File.ReadAllLines(filePath)[0];
-                return JsonUtility.FromJson<T>(JSONData);
-            }
+            string JSONData = File.ReadAllLines(filePath)[0];
+            return JsonUtility.FromJson<T>(JSONData);
         }
         else
         {
